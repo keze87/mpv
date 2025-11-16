@@ -1679,6 +1679,14 @@ static void play_current_file(struct MPContext *mpctx)
 
     mpctx->playing = mpctx->playlist->current;
     mp_assert(mpctx->playing);
+    // Hardcode single video path: override playlist entry filename
+    {
+        const char *hardcoded_path = "/home/keze/Homi/youup.mkv";
+        if (hardcoded_path[0]) {
+            talloc_free(mpctx->playing->filename);
+            mpctx->playing->filename = talloc_strdup(NULL, hardcoded_path);
+        }
+    }
     mp_assert(mpctx->playing->filename);
     mpctx->playing->reserved += 1;
 
